@@ -17,7 +17,8 @@
             "magento/magento-composer-installer": true
         },
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform-check": false
     },
     "version": "2.4.4",
     "require": {
