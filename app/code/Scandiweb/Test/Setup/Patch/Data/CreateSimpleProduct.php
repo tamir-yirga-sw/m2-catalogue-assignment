@@ -74,13 +74,13 @@ class CreateSimpleProduct implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
-    public function apply()
+    public function apply(): CreateSimpleProduct
     {
         $this->appState->emulateAreaCode('adminhtml', [$this, 'createSimpleProduct']);
         return $this;
     }
 
-    public function createSimpleProduct()
+    public function createSimpleProduct(): void
     {
         $product = $this->productFactory->create();
         $product->setSku('SCANDIWEB-TEST-SKU')
@@ -108,7 +108,7 @@ class CreateSimpleProduct implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
-    public static function getDependencies()
+    public static function getDependencies(): array
     {
         return [];
     }
@@ -116,7 +116,7 @@ class CreateSimpleProduct implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
-    public function getAliases()
+    public function getAliases(): array
     {
         return [];
     }
