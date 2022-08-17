@@ -48,18 +48,18 @@ class CreateSimpleProduct implements DataPatchInterface
     /**
      * CreateSimpleProduct Constructor
      *
-     * @param ProductInterfaceFactory $productFactory
-     * @param ProductRepositoryInterface $productRepository
+     * @param ProductInterfaceFactory         $productFactory
+     * @param ProductRepositoryInterface      $productRepository
      * @param CategoryLinkManagementInterface $categoryLinkManagement
-     * @param State $appState
-     * @param SourceItemInterfaceFactory $sourceItemFactory
-     * @param SourceItemsSaveInterface $sourceItemsSaveInterface
+     * @param State                           $appState
+     * @param SourceItemInterfaceFactory      $sourceItemFactory
+     * @param SourceItemsSaveInterface        $sourceItemsSaveInterface
      */
     public function __construct(
-        ProductInterfaceFactory         $productFactory,
-        ProductRepositoryInterface      $productRepository,
+        ProductInterfaceFactory $productFactory,
+        ProductRepositoryInterface $productRepository,
         CategoryLinkManagementInterface $categoryLinkManagement,
-        State                           $appState,
+        State $appState,
         SourceItemInterfaceFactory $sourceItemFactory,
         SourceItemsSaveInterface $sourceItemsSaveInterface
     ) {
@@ -74,9 +74,21 @@ class CreateSimpleProduct implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
+    public static function getDependencies(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function apply(): CreateSimpleProduct
     {
-        $this->appState->emulateAreaCode('adminhtml', [$this, 'createSimpleProduct']);
+        $this->appState->emulateAreaCode(
+            'adminhtml',
+            [$this, 'createSimpleProduct']
+        );
+
         return $this;
     }
 
@@ -102,15 +114,10 @@ class CreateSimpleProduct implements DataPatchInterface
         $this->sourceItemsSaveInterface->execute([$sourceItem]);
 
         $categoryIds = [2]; // Default category id in store
-        $this->categoryLinkManagement->assignProductToCategories($product->getSku(), $categoryIds);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getDependencies(): array
-    {
-        return [];
+        $this->categoryLinkManagement->assignProductToCategories(
+            $product->getSku(),
+            $categoryIds
+        );
     }
 
     /**
